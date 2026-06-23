@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>胡海洋 - 个人主页</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --bg: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --radius: 8px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+            --max-width: 960px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Nav ===== */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            max-width: var(--max-width); margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; height: 56px;
+        }
+        .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .nav-links { display: flex; gap: 28px; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: var(--text-secondary);
+            font-size: 0.9rem; font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* ===== Sections ===== */
+        .section { padding: 80px 24px; }
+        .section-alt { background: var(--bg-secondary); }
+        .container { max-width: var(--max-width); margin: 0 auto; }
+
+        .section-label {
+            display: inline-block; font-size: 0.8rem; font-weight: 600;
+            color: var(--primary); letter-spacing: 0.05em; text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .section-title {
+            font-size: 2rem; font-weight: 700; color: var(--text);
+            margin-bottom: 16px; letter-spacing: -0.02em;
+        }
+        .section-desc {
+            color: var(--text-secondary); font-size: 1.05rem;
+            max-width: 600px; margin-bottom: 40px;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 120px 24px 80px;
+        }
+        .hero .container { width: 100%; }
+
+        .hero-content {
+            display: flex; align-items: center; gap: 48px;
+        }
+        .hero-avatar {
+            width: 180px; height: 180px; border-radius: 50%;
+            object-fit: cover; flex-shrink: 0;
+            border: 4px solid var(--primary-light);
+            box-shadow: var(--shadow-md);
+        }
+        .hero-text { flex: 1; }
+        .hero-greeting { font-size: 1rem; color: var(--primary); font-weight: 500; margin-bottom: 12px; }
+        .hero-name { font-size: 3.2rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 16px; }
+        .hero-title { font-size: 1.3rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 8px; }
+        .hero-tagline { font-size: 1.05rem; color: var(--text-secondary); max-width: 500px; margin-bottom: 32px; }
+        .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 10px 22px; border-radius: var(--radius);
+            font-size: 0.95rem; font-weight: 500; cursor: pointer;
+            text-decoration: none; border: none;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* ===== About ===== */
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 48px; align-items: start;
+        }
+        .about-text p { margin-bottom: 16px; color: var(--text-secondary); }
+        .about-info { list-style: none; }
+        .about-info li {
+            display: flex; padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        .about-info .label { width: 90px; flex-shrink: 0; font-weight: 600; color: var(--text); }
+        .about-info .value { color: var(--text-secondary); }
+
+        /* ===== Skills ===== */
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .skill-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 24px;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .skill-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .skill-icon { font-size: 1.6rem; margin-bottom: 12px; }
+        .skill-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+        .skill-card p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 14px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .skill-tags span {
+            background: var(--primary-light); color: var(--primary);
+            font-size: 0.78rem; font-weight: 500; padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        /* ===== Projects ===== */
+        .projects-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .project-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius); overflow: hidden;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .project-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .project-image {
+            height: 180px; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem;
+        }
+        .project-body { padding: 20px; }
+        .project-body h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+        .project-body p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 14px; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+        .project-tech span {
+            background: var(--bg-secondary); color: var(--text-secondary);
+            font-size: 0.78rem; padding: 2px 10px; border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        .project-link {
+            color: var(--primary); text-decoration: none; font-weight: 500; font-size: 0.9rem;
+        }
+        .project-link:hover { text-decoration: underline; }
+
+        /* ===== Contact ===== */
+        .contact-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+        }
+        .contact-item {
+            display: flex; align-items: flex-start; gap: 14px;
+            padding: 16px 0;
+        }
+        .contact-icon {
+            width: 44px; height: 44px; background: var(--primary-light);
+            border-radius: var(--radius); display: flex; align-items: center;
+            justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+        }
+        .contact-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+        .contact-item span { color: var(--text-secondary); font-size: 0.9rem; }
+        .contact-item a { color: var(--primary); text-decoration: none; }
+        .contact-item a:hover { text-decoration: underline; }
+
+        .contact-form { display: flex; flex-direction: column; gap: 16px; }
+        .contact-form input, .contact-form textarea {
+            width: 100%; padding: 10px 14px;
+            border: 1.5px solid var(--border); border-radius: var(--radius);
+            font-size: 0.95rem; font-family: inherit;
+            transition: border-color 0.2s;
+            background: var(--bg);
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none; border-color: var(--primary);
+        }
+        .contact-form textarea { resize: vertical; min-height: 120px; }
+
+        /* ===== Footer ===== */
+        .footer {
+            border-top: 1px solid var(--border); padding: 24px;
+            text-align: center; color: var(--text-secondary); font-size: 0.85rem;
+        }
+
+        /* ===== Mobile ===== */
+        @media (max-width: 768px) {
+            .hero-content { flex-direction: column; text-align: center; gap: 28px; }
+            .hero-avatar { width: 140px; height: 140px; }
+            .hero-name { font-size: 2.2rem; }
+            .hero { min-height: auto; padding: 100px 24px 60px; }
+            .hero-actions { justify-content: center; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+            .section { padding: 60px 24px; }
+            .nav-links { gap: 16px; }
+            .section-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">胡海洋</a>
+            <ul class="nav-links">
+                <li><a href="#about">关于</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <img src="avatar.jpg" alt="胡海洋" class="hero-avatar">
+                <div class="hero-text">
+                    <p class="hero-greeting">👋 你好，我是</p>
+                    <h1 class="hero-name">胡海洋</h1>
+                    <p class="hero-title">全栈开发工程师</p>
+                    <p class="hero-tagline">
+                        热衷于构建优雅、高性能的 Web 应用。喜欢探索新技术，用代码解决实际问题。
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn btn-primary">查看作品</a>
+                        <a href="#contact" class="btn btn-outline">联系我</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section section-alt">
+        <div class="container">
+            <span class="section-label">关于我</span>
+            <h2 class="section-title">了解我的更多</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        我是一名拥有 5 年经验的全栈开发工程师，目前就职于某互联网公司。
+                        擅长使用 React、Vue 等前端框架以及 Node.js、Python 进行后端开发。
+                    </p>
+                    <p>
+                        工作中我注重代码质量和用户体验，喜欢将复杂的问题拆解为简单的模块。
+                        业余时间我会参与开源项目，写技术博客，也会打打羽毛球、看看电影。
+                    </p>
+                </div>
+                <ul class="about-info">
+                    <li><span class="label">姓名</span><span class="value">胡海洋</span></li>
+                    <li><span class="label">所在地</span><span class="value">中国 · 北京</span></li>
+                    <li><span class="label">邮箱</span><span class="value">1730997831@qq.com</span></li>
+                    <li><span class="label">学历</span><span class="value">计算机科学 本科</span></li>
+                    <li><span class="label">工作经验</span><span class="value">5 年</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+        <div class="container">
+            <span class="section-label">技能</span>
+            <h2 class="section-title">我擅长的技术</h2>
+            <p class="section-desc">以下是我在日常工作中经常使用的一些主要技术和工具。</p>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🎨</div>
+                    <h3>前端开发</h3>
+                    <p>构建响应式、交互流畅的用户界面</p>
+                    <div class="skill-tags">
+                        <span>React</span><span>Vue</span><span>TypeScript</span><span>Tailwind CSS</span><span>Next.js</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚙️</div>
+                    <h3>后端开发</h3>
+                    <p>设计可扩展的 API 与后端服务</p>
+                    <div class="skill-tags">
+                        <span>Node.js</span><span>Python</span><span>Go</span><span>PostgreSQL</span><span>Redis</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🛠️</div>
+                    <h3>工具与 DevOps</h3>
+                    <p>高效的开发流程与自动化部署</p>
+                    <div class="skill-tags">
+                        <span>Docker</span><span>Git</span><span>CI/CD</span><span>Linux</span><span>AWS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section section-alt">
+        <div class="container">
+            <span class="section-label">作品</span>
+            <h2 class="section-title">近期项目</h2>
+            <p class="section-desc">以下是我参与和独立完成的一些项目。</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">📊</div>
+                    <div class="project-body">
+                        <h3>数据可视化平台</h3>
+                        <p>一个实时数据监控与分析平台，支持自定义图表和报表导出。</p>
+                        <div class="project-tech"><span>React</span><span>D3.js</span><span>Node.js</span></div>
+                        <a href="#" class="project-link">了解更多 →</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">🛒</div>
+                    <div class="project-body">
+                        <h3>电商后台管理系统</h3>
+                        <p>完整的商品管理、订单处理和数据分析后台系统。</p>
+                        <div class="project-tech"><span>Vue</span><span>Element Plus</span><span>Python</span></div>
+                        <a href="#" class="project-link">了解更多 →</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">💬</div>
+                    <div class="project-body">
+                        <h3>即时通讯应用</h3>
+                        <p>支持群聊、文件传输的实时通讯 Web 应用。</p>
+                        <div class="project-tech"><span>React</span><span>WebSocket</span><span>Go</span></div>
+                        <a href="#" class="project-link">了解更多 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+        <div class="container">
+            <span class="section-label">联系</span>
+            <h2 class="section-title">与我取得联系</h2>
+            <p class="section-desc">如有任何问题或合作意向，欢迎随时联系我。</p>
+            <div class="contact-grid">
+                <div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div><h4>邮箱</h4><a href="mailto:1730997831@qq.com">1730997831@qq.com</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💻</div>
+                        <div><h4>GitHub</h4><a href="#">github.com/huhaiyang</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🔗</div>
+                        <div><h4>LinkedIn</h4><a href="#">linkedin.com/in/huhaiyang</a></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div><h4>所在地</h4><span>中国 · 北京</span></div>
+                    </div>
+                </div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('感谢你的留言！我会尽快回复。');">
+                    <input type="text" placeholder="你的姓名" required>
+                    <input type="email" placeholder="你的邮箱" required>
+                    <input type="text" placeholder="主题">
+                    <textarea placeholder="留言内容……" required></textarea>
+                    <button type="submit" class="btn btn-primary">发送留言</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 胡海洋. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
